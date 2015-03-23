@@ -1,6 +1,6 @@
 {
   "meteorDeveloper" : {
-    "clientId" : "<CLIENT_ID_HERE>",
+    "clientId" : "123456",
     "secret" : "<SECRET_HERE>"
   }
 }
