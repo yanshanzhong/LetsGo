@@ -4,7 +4,7 @@
 
 A [Product Hunt](http://www.producthunt.com/apps/ios) clone built using [meteoric:meteor-ionic](https://github.com/meteoric/meteor-ionic). **Currently in progress**
 
-## Running the app
+## Running the app 
 
 ```
 cp settings.json.example settings.json
