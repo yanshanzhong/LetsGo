@@ -1,0 +1,13 @@
+<template name="trace">
+  <script type="text/javascript">
+  toolBar.doLocation();
+  AMap.event.addListener(toolBar,'location',function callback(e){ 
+    locationInfo = e.lnglat;
+  	//RunnerLocations.insert({lng: locationInfo.lng, lat: locationInfo.lat}); 
+  	//runnerLocations.insert({x: '1', y: '2'});
+  	$('#lets_go_showlocation').append('(').append(locationInfo.lng).append(',').append(locationInfo.lat).append(')');
+  });
+  
+  </script>
+
+</template>
