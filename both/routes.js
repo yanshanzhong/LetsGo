@@ -1,4 +1,21 @@
+
 Router.route('/', {
+  name: 'go'
+});
+
+Router.route('/friends', {
+  name: 'friends'
+});
+
+Router.route('/rank', {
+  name: 'rank'
+});
+
+Router.route('/me', {
+  name: 'me'
+});
+
+Router.route('/trending', {
   name: 'trending'
 });
 
