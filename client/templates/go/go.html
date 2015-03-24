@@ -2,7 +2,7 @@
 
   {{#contentFor "headerButtonLeft"}}
     <button class="button button-clear pull-left button-positive" data-ion-modal="search">
-      search
+      {{> ionIcon icon='ios-search'}}
     </button>
   {{/contentFor}}
 
@@ -18,7 +18,29 @@
 
   {{#ionView}}
     {{#ionContent}}
-      <div style="padding:20px;">一起跑</div>
+      
+  <div id="mapContainer" style="height:100%;width:100%;"></div>
+  
+    <script type="text/javascript">
+    (function(exports){
+      
+      var map = new AMap.Map('mapContainer', {
+        //resizeEnable: true,
+        //rotateEnable: true,
+        //dragEnable: true,
+        //zoomEnable: true,
+        //设置可缩放的级别
+        //zooms: [3,18],
+        //传入2D视图，设置中心点和缩放级别
+        view: new AMap.View2D({
+          center: new AMap.LngLat(116.397428, 39.90923),
+          zoom: 12
+        })
+      });     
+    })(window);
+    
+  </script>
+
     {{/ionContent}}
   {{/ionView}}
 </template>
