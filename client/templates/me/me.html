@@ -1,14 +1,52 @@
 <template name="me">
 
-  
-
   {{#contentFor "headerTitle"}}
     <h1 class="title">我自己</h1>
   {{/contentFor}}
 
   {{#ionView}}
     {{#ionContent}}
-      <div style="padding:20px;">我自己</div>
+
+  <div style="padding:15px">
+    <table>
+      <tr>
+          <td rowspan=3><img  class="direct-chat-img" src="letsgo/me/user8-128x128.jpg" /></td>
+          <td align=right>
+                <div class="Face" >&nbsp; 登录名：</div></td><td><div>13901089515</div></td></tr>
+                <tr><td align=right><div class="Face" >&nbsp; 昵称：</div></td><td><div>雷之宇</div></td></tr>
+                <tr><td align=right><div class="Face" >&nbsp; 运动等级：</div></td><td><div class="Face">
+                      <img src="letsgo/me/star.jpg" width="20px;">
+                      <img src="letsgo/me/star.jpg" width="20px;">
+                      <img src="letsgo/me/star.jpg" width="20px;">
+                      <img src="letsgo/me/star.jpg" width="20px;">
+                      <img src="letsgo/me/star1.jpg" width="20px;">
+                </div></td></tr>
+    </table>
+  </div>
+
+
+           <div class="posts" style="padding:15px;">
+                 <div class="post" style="background-color:#fcfcfc">
+                   <div class="post-content">
+                     <h4><span>记录：42天</span></h4>
+                     <div style="color:#aaaaaa">Total：420 公里；56 小时； 平均时速：5‘30”</div>
+                   </div>
+                 </div>
+                 <div class="post" style="background-color:#fcfcfc">
+                   <div class="post-content">
+                     <h4><span>本月计划：78%</span></h4>
+                     <div style="color:#aaaaaa">本月计划：200 公里；实际完成：160 公里；</div>
+                   </div>                 
+                 </div>
+                 <div class="post" style="background-color:#fcfcfc">
+                   <div class="post-content">
+                     <h4><span>我的”最“：</span></h4>
+                     <div style="color:#aaaaaa">最快1公里：3’48“；最大跑量：45公里 / 5小时18分</div>
+                   </div>
+                 </div>
+
+           </div>
+
     {{/ionContent}}
   {{/ionView}}
 

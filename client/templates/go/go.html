@@ -11,13 +11,14 @@
   {{/contentFor}}
 
   {{#ionView}}
-    {{#ionContent}}
+    {{#ionContent "myclass"}}
       
   <div id="mapContainer" style="height:100%;width:100%;"></div>
   
     <script type="text/javascript">
     var map, geolocation;
     var toolBar, locationInfo;
+    var traceFlag = 0;
     //加载地图，调用浏览器定位服务
     map = new AMap.Map('mapContainer', {
       resizeEnable: true,
@@ -32,21 +33,58 @@
         zoom: 12
       })
     });
+
+    var marker = new AMap.Marker({  
+      //复杂图标
+      icon: new AMap.Icon({    
+          //图标大小
+          size:new AMap.Size(28,37),
+          //大图地址
+          //image:"letsgo/go/run.png", 
+          //image:"http://png-2.findicons.com/files/icons/85/kids/16/run.png", 
+          image:"http://png-5.findicons.com/files/icons/1620/crystal_project/22/agt_login.png",
+          imageOffset:new AMap.Pixel(0,0)
+        }),
+      //在地图上添加点
+      position:new AMap.LngLat(116.405467,39.907761)
+    });
+   //添加带文本的点标记覆盖物
+  function addMarker(lng, lat){ 
+      //自定义点标记内容   
+    var markerContent = document.createElement("div");
+    markerContent.className = "markerContentStyle";
+      
+    //点标记中的图标
+    var markerImg = document.createElement("img");
+       markerImg.className = "markerlnglat";
+     markerImg.src = "http://png-5.findicons.com/files/icons/1620/crystal_project/22/agt_login.png"; 
+     markerContent.appendChild(markerImg);
+     
+     var marker = new AMap.Marker({
+      map:map,
+      position: new AMap.LngLat(lng, lat), //基点位置
+      offset: new AMap.Pixel(-10,-10), //相对于基点的偏移位置
+      //draggable: true,  //是否可拖动
+      content: markerContent   //自定义点标记覆盖物内容
+    });
+    marker.setMap(map);  //在地图上添加点
+  }
     //地图中添加地图操作ToolBar插件
-    map.plugin(['AMap.ToolBar'],function(){
-      //设置地位标记为自定义标记
-      toolBar = new AMap.ToolBar(); 
-      map.addControl(toolBar);
-      AMap.event.addListener(toolBar,'location',function callback(e){ 
-        locationInfo = e.lnglat;      
-      });
-      toolBar.doLocation();
-    }); 
+    // map.plugin(['AMap.ToolBar'],function(){
+    //   //设置地位标记为自定义标记
+    //   toolBar = new AMap.ToolBar(); 
+    //   map.addControl(toolBar);
+    //   AMap.event.addListener(toolBar,'location',function callback(e){ 
+    //     locationInfo = e.lnglat;      
+    //   });
+    //   toolBar.doLocation();
+      
+    // }); 
     map.plugin('AMap.Geolocation', function () {
       geolocation = new AMap.Geolocation({
         enableHighAccuracy: true,//是否使用高精度定位，默认:true
         timeout: 10000,          //超过10秒后停止定位，默认：无穷大
-        maximumAge: 0,           //定位结果缓存0毫秒，默认：0
+        maximumAge: 10000,           //定位结果缓存0毫秒，默认：0
         convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
         showButton: false,        //显示定位按钮，默认：true
         buttonPosition: 'LT',    //定位按钮停靠位置，默认：'LB'，左下角
@@ -56,9 +94,9 @@
         panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
         zoomToAccuracy:true      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
       });
-          map.addControl(geolocation);
-      //AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
-      //AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+      map.addControl(geolocation);
+      AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+      AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
     });
     //获取当前位置信息
     function getCurrentPosition () {
@@ -66,19 +104,35 @@
     };
     //监控当前位置并获取当前位置信息
     function watchPosition () {
-      geolocation.watchPosition();
+      if(traceFlag) {
+        traceFlag = 0;
+        geolocation.clearWatch();
+      } else {
+        traceFlag = 1;
+        geolocation.watchPosition();
+         marker.setMap(map); 
+      }
+      //alert(traceFlag);
     };
     //解析定位结果
     function onComplete (data) {
-      var str = '<div>定位成功</div>';
-      str += '<div>经度：' + data.position.getLng() + '</div>';
-      str += '<div>纬度：' + data.position.getLat() + '</div>'; 
-      str += '<div>精度：' + data.accuracy + ' 米</div>';
-      str += '<div>是否经过偏移：' + (data.isConverted ? '是' : '否') + '</div>';
-      result.innerHTML = str;
+      var str = '';
+      str += 'x:' + data.position.getLng() + ',';
+      str += 'y:' + data.position.getLat() + ''; 
+      //str += '<div>精度：' + data.accuracy + ' 米</div>';
+      //str += '<div>是否经过偏移：' + (data.isConverted ? '是' : '否') + '</div>';
+      //result.innerHTML = str;
+      //$('#lets_go_showlocation').html(str);
+      if(traceFlag){
+        RunnerLocations.insert({lng: data.position.getLng(),lat: data.position.getLat()});
+        addMarker(data.position.getLng(), data.position.getLat() );
+      }
+      
+      //console.log(str);
     };
     //解析定位错误信息
     function onError (data) {
+     
       var str = '<p>定位失败</p>';
       str += '<p>错误信息：'
       switch(data.info) {
@@ -96,7 +150,9 @@
           break;
       }
       str += '</p>';
-      result.innerHTML = str;
+      //result.innerHTML = str;
+      //$('#lets_go_showlocation').html(str);
+      alert(str);
     };
     
   </script>

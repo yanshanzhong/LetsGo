@@ -19,3 +19,56 @@ Template.friends.helpers({
     return Products.find({}, {sort: {numberOfVotes: -1, name: -1}});
   }
 });
+var postsData = [
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  },
+  {
+    title: 'Meteor精益创业孵化营(32)'
+  },
+  {
+    title: '孵化营周末课程通知群(30)'
+  },
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  },
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  },
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  },
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  },
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  },
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  },
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  },
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  },
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  }
+  ,
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  }
+  ,
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  }
+  ,
+  {
+    title: '【LetsGo一起跑】项目组(5)'
+  }
+];
+Template.friends.helpers({
+  posts: postsData
+});

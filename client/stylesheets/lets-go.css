@@ -5,3 +5,9 @@
   margin-right: 10px;
   
 }
+.letsgo-tab-go{
+	background-image: url(public/letsgo/);
+}
+.content{
+	padding: 0px;
+}

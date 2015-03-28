@@ -2,6 +2,10 @@ Meteor.publish('products', function() {
   return Products.find();
 });
 
+Meteor.publish('runnerLocations', function() {
+  return RunnerLocations.find();
+});
+
 Meteor.publish('productsSearch', function(query) {
   check(query, String);
 
